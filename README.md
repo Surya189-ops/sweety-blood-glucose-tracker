@@ -7,26 +7,40 @@ A full-stack blood glucose tracking application built with React, TypeScript, No
 - Secure user registration and login.
 - JWT authentication and bcrypt password hashing.
 - Create, view, update and delete glucose readings.
-- Four daily reading slots.
+- Four daily reading slots:
+  - Morning (fasting)
+  - After breakfast
+  - After lunch
+  - After dinner
 - Glucose validation between 40 and 600 mg/dl.
 - Prevention of duplicate readings.
-- Daily and monthly reports.
-- Highest, lowest and average glucose statistics.
-- Responsive dashboard with trend charts.
+- Maximum four readings per user per day.
+- Daily, month-to-date and previous-month reports.
+- Highest, lowest, average and total reading statistics.
+- Responsive dashboard with glucose trend charts.
+- Dedicated glucose reports page.
+- User-specific data access and protected API endpoints.
 
 ## Application Screenshots
 
 ### Authentication
+
 ![Login](screenshots/login.png)
+
 ![Registration](screenshots/register.png)
 
 ### Dashboard and Reading Management
+
 ![Dashboard](screenshots/dashboard.png)
+
 ![Add Reading](screenshots/add-reading.png)
 
 ### Glucose Reports
+
 ![Daily Report](screenshots/reports-daily.png)
+
 ![Month-to-Date Report](screenshots/reports-month-to-date.png)
+
 ![Previous Month Report](screenshots/reports-previous-month.png)
 
 ## Technology Stack
@@ -34,15 +48,25 @@ A full-stack blood glucose tracking application built with React, TypeScript, No
 - React, TypeScript, Vite and Tailwind CSS.
 - Node.js and Express.
 - PostgreSQL and Prisma ORM.
-- JWT, bcryptjs and Zod.
-- Recharts and Vitest.
+- JWT and bcryptjs.
+- Zod for validation.
+- Recharts for data visualization.
+- Vitest for backend validation tests.
 
 ## Project Structure
 
-- client/: React frontend.
-- server/: Express API and Prisma database.
-- screenshots/: Application screenshots.
-- work.md: Development progress log.
+```text
+sweety/
+├── client/                 # React frontend
+├── server/                 # Express backend
+│   ├── prisma/             # Database schema and seed script
+│   ├── src/                # API routes and application logic
+│   └── tests/              # Backend validation tests
+├── screenshots/            # Application screenshots
+├── work.md                 # Development progress log
+├── README.md
+└── .gitignore
+```
 
 ## Prerequisites
 
@@ -53,79 +77,131 @@ A full-stack blood glucose tracking application built with React, TypeScript, No
 
 ## Installation
 
-1. Clone the repository:
+### 1. Clone the repository
 
-   `git clone https://github.com/Surya189-ops/sweety-blood-glucose-tracker.git`
+```bash
+git clone https://github.com/Surya189-ops/sweety-blood-glucose-tracker.git
+cd sweety
+```
 
-   `cd sweety`
-2. Create a PostgreSQL database named sweety_db.
-3. Configure the backend environment variables.
-4. Run database migrations.
-5. Seed demo data.
-6. Start the backend and frontend.
+### 2. Create the PostgreSQL database
 
-### Backend setup
+Create a PostgreSQL database named:
 
-From the project root:
+```sql
+CREATE DATABASE sweety_db;
+```
 
-1. Enter the server directory: `cd server`
-2. Install dependencies: `npm install`
-3. Copy the environment example: `cp .env.example .env`
-4. Edit `.env` with your PostgreSQL connection and JWT secret.
+### 3. Backend setup
 
-Required environment variables:
+Open a terminal from the project root:
 
-- DATABASE_URL
-- JWT_SECRET
-- PORT
-- CLIENT_URL
-- NODE_ENV
+```bash
+cd server
+npm install
+```
+
+Copy the environment example:
+
+```bash
+cp .env.example .env
+```
+
+Configure the variables in `server/.env`:
+
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/sweety_db?schema=public"
+JWT_SECRET="replace-with-a-long-random-secret"
+PORT=5000
+CLIENT_URL="http://localhost:5173"
+NODE_ENV="development"
+```
 
 Generate Prisma Client:
 
-`npm run db:generate`
+```bash
+npm run db:generate
+```
 
 Apply database migrations:
 
-`npm run db:migrate`
+```bash
+npm run db:migrate
+```
 
-Create demo data:
+Create the demo user and sample readings:
 
-`npm run db:seed`
+```bash
+npm run db:seed
+```
 
 Start the backend:
 
-`npm run dev`
+```bash
+npm run dev
+```
 
 The API runs on port 5000.
 
-### Frontend setup
+### 4. Frontend setup
 
-Open a second terminal from the project root.
+Open a second terminal from the project root:
 
-1. Enter the frontend directory: `cd client`
-2. Install dependencies: `npm install`
-3. Copy the environment example: `cp .env.example .env`
-4. Start the frontend: `npm run dev`
+```bash
+cd client
+npm install
+```
+
+Copy the environment example:
+
+```bash
+cp .env.example .env
+```
+
+The frontend environment variable is:
+
+```env
+VITE_API_URL=/backend
+```
+
+Start the frontend:
+
+```bash
+npm run dev
+```
 
 The Vite development server normally runs on port 5173.
 
-The frontend development proxy forwards `/backend` requests to the Express API.
+The Vite development proxy forwards `/backend` requests to the Express API.
+
+Open the application at:
+
+```text
+http://localhost:5173
+```
 
 ## Demo Account
 
-Use the following credentials to explore the seeded demo account:
+Use these credentials to explore the seeded demo account:
 
-- Email: `demo@sweety.app`
-- Password: `SweetyDemo123!`
+| Field | Value |
+|---|---|
+| Email | demo@sweety.app |
+| Password | SweetyDemo123! |
 
-These credentials are for demonstration only. Do not use them for real health information.
+These credentials are provided for demonstration only. Do not use them for real health information.
 
 Running the seed command again resets the demo account's sample readings.
 
 ## API Endpoints
 
-All endpoints use the `/api` prefix.
+All API endpoints use the `/api` prefix.
+
+### Health Check
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/health` | Check API status |
 
 ### Authentication
 
@@ -133,7 +209,7 @@ All endpoints use the `/api` prefix.
 |---|---|---|
 | POST | `/api/auth/register` | Register a user |
 | POST | `/api/auth/login` | Log in |
-| GET | `/api/auth/me` | Get current user |
+| GET | `/api/auth/me` | Get current authenticated user |
 
 ### Glucose Readings
 
@@ -141,53 +217,77 @@ All reading endpoints require authentication.
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/api/readings` | List user readings |
+| GET | `/api/readings` | List authenticated user's readings |
 | POST | `/api/readings` | Add a reading |
 | PUT | `/api/readings/:id` | Update a reading |
 | DELETE | `/api/readings/:id` | Delete a reading |
 
 ### Reports
 
-All report endpoints require authentication and a date in YYYY-MM-DD format.
+All report endpoints require authentication and a date in `YYYY-MM-DD` format.
 
-- `GET /api/reports/daily?date=YYYY-MM-DD`
-- `GET /api/reports/month-to-date?date=YYYY-MM-DD`
-- `GET /api/reports/monthly?date=YYYY-MM-DD`
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/reports/daily?date=YYYY-MM-DD` | Daily report |
+| GET | `/api/reports/month-to-date?date=YYYY-MM-DD` | Month-to-date report |
+| GET | `/api/reports/monthly?date=YYYY-MM-DD` | Previous-month report |
 
-The reports include highest, lowest, average and total readings.
+Each report includes:
 
-Report periods:
+- Highest glucose reading.
+- Lowest glucose reading.
+- Average glucose reading, rounded to one decimal place.
+- Total number of readings.
+- Reading history and an empty state when no readings exist.
+
+### Report Date Ranges
+
 - **Daily:** Readings for the selected date.
-- **Month-to-date:** Readings from the first day of the selected month through the selected date.
-- **Monthly:** Readings for the complete calendar month immediately before the selected date's month.
-
-
-### Health Check
-
-`GET /api/health`
+- **Month-to-date:** From the first day of the selected month through the selected date.
+- **Monthly:** The complete calendar month immediately before the selected date's month.
 
 ## Validation Rules
 
-- Glucose values must be whole numbers between 40 and 600 mg/dl.
-- Dates must be valid and cannot be in the future.
-- Only one reading is allowed per slot per day.
-- Maximum four readings per user per day.
+The application implements the following validation rules:
+
+| Rule | Error message |
+|---|---|
+| Glucose value is required | Please enter a glucose value. |
+| Value must be a whole number between 40 and 600 | Value must be between 40 and 600 mg/dl. |
+| Duplicate slot on the same date | You already have a reading for this slot and date. |
+| Maximum four readings per day | You can add only 4 readings per day. |
+| Future dates are not allowed | Date cannot be in the future. |
+
+Additional validations include:
+
+- Invalid calendar dates are rejected.
+- Decimal glucose values are rejected.
 - Duplicate email registrations are rejected.
 - Users can access only their own readings.
 
 ## Testing
 
-Run backend validation tests:
+Run the backend validation tests:
 
-`cd server && npm test`
+```bash
+cd server
+npm test
+```
 
 Build the backend:
 
-`cd server && npm run build`
+```bash
+npm run build
+```
 
 Build the frontend:
 
-`cd client && npm run build`
+```bash
+cd ../client
+npm run build
+```
+
+The backend validation test suite currently contains 12 tests.
 
 ## Security and Privacy
 
@@ -195,9 +295,31 @@ Build the frontend:
 - Protected endpoints require JWT authentication.
 - Database queries are scoped to the authenticated user.
 - Environment files containing secrets are excluded from Git.
+- Example environment files are provided without real secrets.
 - Demo credentials are intended for demonstration only.
 
 Sweety is a tracking application, not a substitute for professional medical advice or diagnosis.
+
+## Notes
+
+### Assumptions
+
+- All glucose readings are recorded in mg/dl.
+- Each user can record a maximum of one reading per time slot per day.
+- A user can record up to four readings per day.
+- Dates are validated using the Asia/Kolkata timezone.
+- The monthly report represents the complete previous calendar month.
+- Each user's glucose readings are private and accessible only after authentication.
+- The demo account is provided exclusively for testing and demonstration.
+
+### Improvements With More Time
+
+- Add pagination to reading history.
+- Expand automated API integration and frontend tests.
+- Add Docker and Docker Compose for easier deployment.
+- Improve chart interactions and accessibility.
+- Add optional doctor/caregiver access with explicit patient consent.
+- Introduce additional reporting and data export capabilities.
 
 ## Future Improvements
 
