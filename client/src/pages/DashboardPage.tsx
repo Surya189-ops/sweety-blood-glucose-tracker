@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Activity, CalendarDays, ChartNoAxesCombined, Droplet,
   LogOut, Plus, Pencil, Trash2, X, Heart,
@@ -148,12 +149,12 @@ export default function DashboardPage() {
         </div>
 
         <div className="sidebar-label">WORKSPACE</div>
-        <div className="sidebar-link active">
+        <Link to="/" className="sidebar-link active">
           <Activity size={19} /> Overview
-        </div>
-        <div className="sidebar-link">
+        </Link>
+        <Link to="/reports" className="sidebar-link">
           <ChartNoAxesCombined size={19} /> Glucose reports
-        </div>
+        </Link>
 
         <div className="sidebar-bottom">
           <div className="profile-avatar">

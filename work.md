@@ -90,3 +90,14 @@ Kenpath – Junior Full Stack Developer, JavaScript & AI
 - Frontend TypeScript and Vite production build: passed.
 - Demo account and sample glucose readings created using the Prisma seed script.
 - Manual frontend verification completed for login, dashboard, reading creation, editing, deletion and empty states.
+
+## 2026-11-09 — Dedicated Glucose Reports Page
+- Added a protected /reports route.
+- Created a dedicated Glucose Reports page.
+- Added daily, month-to-date, and previous-month report filters.
+- Added average, highest, lowest, and total reading summaries.
+- Added glucose trend chart and reading history.
+- Updated sidebar navigation with working Overview and Glucose reports links.
+- Added responsive report page styling.
+- Frontend TypeScript and production build passed.
+- Manually verified the Reports page in the browser.
