@@ -28,24 +28,28 @@ Kenpath – Junior Full Stack Developer, JavaScript & AI
 - [x] Manual authentication tests passed
 
 ### Glucose Reading APIs
-- [x] Create readings
-- [x] Retrieve user-specific readings
-- [x] Update readings
-- [x] Delete readings
-- [x] Glucose range validation (40–600)
-- [x] Whole-number validation
+- [x] Create, retrieve, update and delete readings
+- [x] Glucose range and whole-number validation
 - [x] Future-date prevention
-- [x] Duplicate daily slot prevention
-- [x] Four-slot daily limit
+- [x] Duplicate slot prevention
+- [x] Four-reading daily limit
 - [x] Manual CRUD tests passed
 
+### Reports
+- [x] Daily report
+- [x] Month-to-date report
+- [x] Previous calendar month report
+- [x] Highest and lowest values
+- [x] Average rounded to one decimal
+- [x] Total reading count
+- [x] Empty-state handling
+- [x] Manual report tests passed
+
 ### Remaining
-- [ ] Daily reports
-- [ ] Month-to-date reports
-- [ ] Previous-month reports
 - [ ] Frontend authentication screens
 - [ ] Glucose tracker dashboard
-- [ ] Charts and reports UI
+- [ ] Reading management UI
+- [ ] Reports and charts UI
 - [ ] Automated tests
 - [ ] README and demo data
 - [ ] Screenshots and submission
