@@ -1,9 +1,10 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AuthPage from './pages/AuthPage';
+import DashboardPage from './pages/DashboardPage';
 
 function ProtectedDashboard() {
-  const { user, loading, logout } = useAuth();
+  const { user, loading } = useAuth();
 
   if (loading) {
     return <div className="loading-screen">Loading Sweety...</div>;
@@ -13,13 +14,7 @@ function ProtectedDashboard() {
     return <Navigate to="/login" replace />;
   }
 
-  return (
-    <main style={{ padding: 40, fontFamily: 'inherit' }}>
-      <h1>Welcome to Sweety, {user.name}!</h1>
-      <p>Your personal blood glucose tracker.</p>
-      <button onClick={logout}>Sign out</button>
-    </main>
-  );
+  return <DashboardPage />;
 }
 
 function AppRoutes() {

@@ -6,16 +6,21 @@ interface TokenPayload {
 }
 
 export const requireAuth: RequestHandler = (req, res, next) => {
+  const customToken = req.headers['x-sweety-token'];
   const authorization = req.headers.authorization;
+  const token = typeof customToken === 'string'
+    ? customToken.trim()
+    : authorization?.startsWith('Bearer ')
+      ? authorization.slice(7).trim()
+      : '';
 
-  if (!authorization?.startsWith('Bearer ')) {
+  if (!token) {
     res.status(401).json({
       message: 'Authentication required. Please log in.',
     });
     return;
   }
 
-  const token = authorization.slice(7).trim();
   const secret = process.env.JWT_SECRET;
 
   if (!token || !secret) {
