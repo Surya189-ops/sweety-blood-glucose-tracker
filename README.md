@@ -14,6 +14,21 @@ A full-stack blood glucose tracking application built with React, TypeScript, No
 - Highest, lowest and average glucose statistics.
 - Responsive dashboard with trend charts.
 
+## Application Screenshots
+
+### Authentication
+![Login](screenshots/login.png)
+![Registration](screenshots/register.png)
+
+### Dashboard and Reading Management
+![Dashboard](screenshots/dashboard.png)
+![Add Reading](screenshots/add-reading.png)
+
+### Glucose Reports
+![Daily Report](screenshots/reports-daily.png)
+![Month-to-Date Report](screenshots/reports-month-to-date.png)
+![Previous Month Report](screenshots/reports-previous-month.png)
+
 ## Technology Stack
 
 - React, TypeScript, Vite and Tailwind CSS.
@@ -38,7 +53,11 @@ A full-stack blood glucose tracking application built with React, TypeScript, No
 
 ## Installation
 
-1. Clone the repository.
+1. Clone the repository:
+
+   `git clone https://github.com/Surya189-ops/sweety-blood-glucose-tracker.git`
+
+   `cd sweety`
 2. Create a PostgreSQL database named sweety_db.
 3. Configure the backend environment variables.
 4. Run database migrations.
@@ -136,6 +155,12 @@ All report endpoints require authentication and a date in YYYY-MM-DD format.
 - `GET /api/reports/monthly?date=YYYY-MM-DD`
 
 The reports include highest, lowest, average and total readings.
+
+Report periods:
+- **Daily:** Readings for the selected date.
+- **Month-to-date:** Readings from the first day of the selected month through the selected date.
+- **Monthly:** Readings for the complete calendar month immediately before the selected date's month.
+
 
 ### Health Check
 
