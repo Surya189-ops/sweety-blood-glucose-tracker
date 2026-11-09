@@ -79,3 +79,14 @@ Kenpath – Junior Full Stack Developer, JavaScript & AI
 - [x] Manual create, update and delete tests passed
 - [x] Frontend production build passed
 
+
+## 2026-11-09 — Documentation and Final Verification
+
+- Added comprehensive project README with installation, database setup, environment configuration, demo credentials, API endpoints, validation rules, testing and security notes.
+- Updated client/.env.example to use the working /backend development proxy.
+- Added 12 automated validation tests covering registration, login and glucose reading validation.
+- Backend tests: 12/12 passed.
+- Backend TypeScript production build: passed.
+- Frontend TypeScript and Vite production build: passed.
+- Demo account and sample glucose readings created using the Prisma seed script.
+- Manual frontend verification completed for login, dashboard, reading creation, editing, deletion and empty states.
